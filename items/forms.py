@@ -1,7 +1,15 @@
 from django import forms
-from .models import Item
+from django.contrib.auth.models import User
 
-class ItemModelForm(forms.ModelForm):
+class UserRegisterForm(forms.ModelForm):
     class Meta:
-        model = Item
-        fields = '__all__'
+        model = User
+        fields = [ 'username', 'first_name', 'last_name', 'password']
+
+class UserLoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    fields = ['username', 'password']
+
+
+
