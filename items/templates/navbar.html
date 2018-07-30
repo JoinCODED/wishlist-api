@@ -16,13 +16,15 @@
 
         {% else %}
                   <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user-logout' %}">Logout</a>
+                    <a class="nav-link" href="{% url 'wishlist' %}">My Wishlist</></a>
                   </li>
                   <li class="nav-item">
                     <span class="nav-link disabled" href="#">Welcome, {{request.user}}.</span>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user-logout' %}">Logout</a>
                   </li>
         {% endif %}
             </ul>
         </div>
       </nav>
-

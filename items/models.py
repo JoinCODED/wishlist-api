@@ -9,3 +9,8 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class FavoriteItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+

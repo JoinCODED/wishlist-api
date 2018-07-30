@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+{% for item in wishlist %}
+<div class="col-sm-4 py-2">
+    <div class="card h-100">
+        <img class="card-img-top" height="55%" src="{{item.image.url}}" alt="Card image cap">
+        <div class="card-body bg-light">
+            <h3 class="card-title">{{item.name}}</h3>
+            <a href="{% url 'item-detail' item.id %}" class="btn btn-outline-dark">More</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}
