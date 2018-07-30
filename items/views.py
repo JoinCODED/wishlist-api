@@ -7,6 +7,9 @@ from django.http import JsonResponse
 # Create your views here.
 def item_list(request):
     items = Item.objects.all()
+    query = request.GET.get('q')
+    if query:
+        items = items.filter(name__contains=query)
     if request.user.is_authenticated:
         favorite_list = request.user.favoriteitem_set.all().values_list('item', flat=True)
     context = {
@@ -77,6 +80,9 @@ def item_favorite(request, item_id):
 def wishlist(request):
     wishlist = []
     items = Item.objects.all()
+    query = request.GET.get('q')
+    if query:
+        items = Item.objects.filter(name__contains=query)
     if request.user.is_authenticated:
         favorite_objects = request.user.favoriteitem_set.all()
     for item in items:

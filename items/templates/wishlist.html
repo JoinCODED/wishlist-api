@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<form class="form-inline my-2 my-lg-0" action="{% url 'wishlist' %}">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search Items" aria-label="Search" name="q"> 
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
 <div class="row">
 {% for item in wishlist %}
 <div class="col-sm-4 py-2">
