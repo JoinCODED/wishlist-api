@@ -80,25 +80,29 @@ class ItemDetailViewTest(APITestCase):
 
 
 	def test_url_authorized(self):
-		self.client.login(username="laila", password="1234567890-=")
+		response = self.client.post(reverse('api-login'), {"username" : "laila", "password": "1234567890-="})
+		self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.data['access'])
 		response = self.client.get(reverse('api-detail', args=[1]))
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
 	def test_url_unauthorized(self):
-		self.client.login(username="laila2", password="1234567890-=")
+		response = self.client.post(reverse('api-login'), {"username" : "laila2", "password": "1234567890-="})
+		self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.data['access'])
 		response = self.client.get(reverse('api-detail', args=[1]))
 		self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 
 	def test_details(self):
-		self.client.login(username="laila", password="1234567890-=")
+		response = self.client.post(reverse('api-login'), {"username" : "laila", "password": "1234567890-="})
+		self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.data['access'])
 		response = self.client.get(reverse('api-detail', args=[1]))
 		self.assertEqual(dict(response.data)['name'], self.item1['name'])
 
 
 	def test_users_sent(self):
-		self.client.login(username="laila", password="1234567890-=")
+		response = self.client.post(reverse('api-login'), {"username" : "laila", "password": "1234567890-="})
+		self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + response.data['access'])
 		response = self.client.get(reverse('api-detail', args=[1]))
 		people_count = FavoriteItem.objects.filter(item_id=1).count()
 		self.assertEqual(len(dict(response.data)['favourited_by']), people_count)
