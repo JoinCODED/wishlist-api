@@ -6,6 +6,7 @@ class Item(models.Model):
     image = models.ImageField()
     name = models.CharField(max_length=120)
     description = models.TextField(max_length=255)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='added_by')
 
     def __str__(self):
         return self.name
@@ -13,4 +14,6 @@ class Item(models.Model):
 class FavoriteItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 
